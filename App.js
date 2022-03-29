@@ -1,16 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import useWebSocket from 'react-use-websocket'
+import useWebSocket from 'react-use-websocket';
+import { useState } from 'react';
 
 export default function App() {
 
-  const { lastJsonMessage } = useWebSocket(``, {
+  const [data, setData] = useState({});
 
+  const { lastJsonMessage } = useWebSocket(`wss://stream.binance.com:9443/ws/btcusdt@ticker`, {
+    onMessage: () => {
+      if(lastJsonMessage){
+        setData(lastJsonMessage)
+      }
+    },
+    onError: (event) => alert(event),
+    shouldReconnect: () => true, // TENTA RECONECTAR
+    reconnectInterval: 3000
   })
 
   return (
     <View style={styles.container}>
-      <Text>Testando!</Text>
+      <Text>{JSON.stringify(data)}</Text>
       <StatusBar style="auto" />
     </View>
   );
