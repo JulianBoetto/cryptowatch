@@ -1,17 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { View, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
 import useWebSocket from 'react-use-websocket';
-import { useState } from 'react';
-import { Input, Text } from 'react-native-elements'
 import { Feather as Icon } from '@expo/vector-icons'
+import { Input, Text } from 'react-native-elements'
 
-import CoinDetailedScreen from './src/screens/CoinDetailsScreen';
 
-export default function App() {
+export default function CoinDetailsScreen({symbol}) {
 
   const [data, setData] = useState({});
-  const [text, setText] = useState('BTCUSDT');
-  const [symbol, setSymbol] = useState('btcusdt');
 
   const { lastJsonMessage } = useWebSocket(`wss://stream.binance.com:9443/ws/${symbol}@ticker`, {
     onMessage: () => {
@@ -24,27 +20,9 @@ export default function App() {
     reconnectInterval: 3000
   })
 
-  const searchButton = <Icon.Button
-    name='search'
-    size={24}
-    color='white'
-    backgroundColor='transparent'
-    onPress={e => setSymbol(text.toLocaleLowerCase())}
-  />
-
   return (
-    <View style={styles.container}>
-      <Text h1 style={styles.titulo}>CryptoWatch 1.0</Text>
-      <Input
-        autoCapitalize='characters'
-        leftIcon={<Icon name='dollar-sign' size={24} color='white' />}
-        rightIcon={searchButton}
-        onChangeText={setText}
-      />
-      <CoinDetailedScreen 
-        symbol={symbol}
-      />
-      {/* <View style={styles.linha}>
+    <View>
+      <View style={styles.linha}>
         <Text style={styles.titulo}>{data.s}</Text>
       </View>
       <View style={styles.linha}>
@@ -58,10 +36,9 @@ export default function App() {
       <View style={styles.linha}>
         <Text style={styles.rotulo}>Volume:</Text>
         <Text style={styles.conteudo}>{data.v}</Text>
-      </View> */}
-      <StatusBar style="auto" />
+      </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -74,7 +51,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#292929'
   },
+  rotulo: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    color: '#fff'
+  },
+  conteudo: {
+    fontSize: 24,
+    color: '#fff'
+  },
+  linha: {
+    flexDirection: 'row',
+    width: '100%'
+  },
   titulo: {
+    fontSize: 30,
     color: '#fff'
   }
 });

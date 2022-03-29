@@ -17,6 +17,7 @@
     "react-native": "0.64.3",
     "react-native-elements": "^3.4.2",
     "react-native-web": "0.17.1",
+    "react-navigation": "^4.4.4",
     "react-use-websocket": "^3.0.0"
   },
   "devDependencies": {
