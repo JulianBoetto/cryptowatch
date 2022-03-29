@@ -25,21 +25,35 @@ export default function App() {
   const searchButton = <Icon.Button
     name='search'
     size={24}
-    color='black'
+    color='white'
     backgroundColor='transparent'
     onPress={e => setSymbol(text.toLocaleLowerCase())}
   />
 
   return (
     <View style={styles.container}>
-      <Text h1>CryptoWatch 1.0</Text>
+      <Text h1 style={styles.principal}>CryptoWatch 1.0</Text>
       <Input
         autoCapitalize='characters'
-        leftIcon={<Icon name='dollar-sign' size={24} color='black' />}
+        leftIcon={<Icon name='dollar-sign' size={24} color='white' />}
         rightIcon={searchButton}
         onChangeText={setText}
       />
-      <Text>{JSON.stringify(data)}</Text>
+      <View style={styles.linha}>
+        <Text style={styles.titulo}>{data.s}</Text>
+      </View>
+      <View style={styles.linha}>
+        <Text style={styles.rotulo}>Preço Atual:</Text>
+        <Text style={styles.conteudo}>{data.c}</Text>
+      </View>
+      <View style={styles.linha}>
+        <Text style={styles.rotulo}>Variação:</Text>
+        <Text style={styles.conteudo}>{data.P}%</Text>
+      </View>
+      <View style={styles.linha}>
+        <Text style={styles.rotulo}>Volume:</Text>
+        <Text style={styles.conteudo}>{data.v}</Text>
+      </View>
       <StatusBar style="auto" />
     </View>
   );
@@ -47,9 +61,32 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-    marginTop: 40,
-    margin: 20,
-    alignContent: 'center'
+    // flexDirection: 'column',
+    flex: 1,
+    // marginTop: 40,
+    // margin: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#292929'
   },
+  rotulo: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    color: '#fff'
+  },
+  conteudo: {
+    fontSize: 24,
+    color: '#fff'
+  },
+  linha: {
+    flexDirection: 'row',
+    width: '100%'
+  },
+  titulo: {
+    fontSize: 30,
+    color: '#fff'
+  },
+  principal: {
+    color: '#fff'
+  }
 });
