@@ -1,10 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import useWebSocket from 'react-use-websocket'
 
 export default function App() {
+
+  const { lastJsonMessage } = useWebSocket(``, {
+
+  })
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>Testando!</Text>
       <StatusBar style="auto" />
     </View>
   );
